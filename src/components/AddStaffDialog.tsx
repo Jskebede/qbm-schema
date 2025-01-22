@@ -40,6 +40,16 @@ export const AddStaffDialog = ({ stations, onAddStaff }: AddStaffDialogProps) =>
     setSelectedStations([]);
   };
 
+  const handleSelectAll = (checked: boolean) => {
+    if (checked) {
+      setSelectedStations(stations);
+    } else {
+      setSelectedStations([]);
+    }
+  };
+
+  const areAllSelected = stations.length > 0 && selectedStations.length === stations.length;
+
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -63,7 +73,17 @@ export const AddStaffDialog = ({ stations, onAddStaff }: AddStaffDialogProps) =>
             />
           </div>
           <div className="space-y-2">
-            <Label>Stations</Label>
+            <div className="flex items-center justify-between mb-2">
+              <Label>Stations</Label>
+              <div className="flex items-center space-x-2">
+                <Checkbox
+                  id="selectAll"
+                  checked={areAllSelected}
+                  onCheckedChange={handleSelectAll}
+                />
+                <Label htmlFor="selectAll" className="text-sm text-muted-foreground">Select All</Label>
+              </div>
+            </div>
             <div className="grid grid-cols-2 gap-4">
               {stations.map((station) => (
                 <div key={station} className="flex items-center space-x-2">
