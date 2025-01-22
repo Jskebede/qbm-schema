@@ -6,6 +6,7 @@ import { AddStationDialog } from "@/components/AddStationDialog";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 import { Calendar } from "lucide-react";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 interface Staff {
   id: number;
@@ -25,10 +26,18 @@ interface Schedule {
   };
 }
 
+type ScheduleType = "thursday" | "friday";
+
+const scheduleHours = {
+  thursday: ["17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00", "00:00", "01:00"],
+  friday: ["19:00", "20:00", "21:00", "22:00", "23:00", "00:00", "01:00", "02:00", "03:00"],
+};
+
 const Index = () => {
   const [staff, setStaff] = useState<Staff[]>([]);
   const [stations, setStations] = useState<Station[]>([]);
   const [schedule, setSchedule] = useState<Schedule | null>(null);
+  const [scheduleType, setScheduleType] = useState<ScheduleType>("thursday");
   const { toast } = useToast();
 
   const handleAddStaff = (name: string, selectedStations: string[]) => {
@@ -57,9 +66,8 @@ const Index = () => {
       return;
     }
 
-    // Initialize schedule for a typical 8-hour shift
+    const hours = scheduleHours[scheduleType];
     const newSchedule: Schedule = {};
-    const hours = ["18:00", "19:00", "20:00", "21:00", "22:00", "23:00", "00:00", "01:00"];
 
     // Initialize empty schedule
     hours.forEach((hour) => {
@@ -99,7 +107,6 @@ const Index = () => {
       description: "Schedule generated successfully",
     });
 
-    // Log the schedule to console for debugging
     console.log("Generated Schedule:", newSchedule);
   };
 
@@ -108,14 +115,28 @@ const Index = () => {
       <div className="max-w-7xl mx-auto space-y-8">
         <div className="flex items-center justify-between">
           <h1 className="text-4xl font-bold">Bar Schedule Manager</h1>
-          <Button 
-            className="gap-2" 
-            variant="outline"
-            onClick={generateSchedule}
-          >
-            <Calendar className="w-4 h-4" />
-            Generate Schedule
-          </Button>
+          <div className="flex items-center gap-4">
+            <Select
+              value={scheduleType}
+              onValueChange={(value: ScheduleType) => setScheduleType(value)}
+            >
+              <SelectTrigger className="w-[180px]">
+                <SelectValue placeholder="Select schedule type" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="thursday">Thursday Pub (17-01)</SelectItem>
+                <SelectItem value="friday">Friday/Tenta Pub (19-03)</SelectItem>
+              </SelectContent>
+            </Select>
+            <Button 
+              className="gap-2" 
+              variant="outline"
+              onClick={generateSchedule}
+            >
+              <Calendar className="w-4 h-4" />
+              Generate Schedule
+            </Button>
+          </div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
