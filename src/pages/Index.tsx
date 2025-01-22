@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 import { Calendar } from "lucide-react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Card } from "@/components/ui/card";
 
 interface Staff {
   id: number;
@@ -188,19 +189,37 @@ const Index = () => {
           {schedule && (
             <section className="col-span-full">
               <h2 className="text-2xl font-semibold mb-4">Generated Schedule</h2>
-              <div className="grid gap-4 p-4 border rounded-lg bg-card">
+              <div className="grid gap-6">
                 {Object.entries(schedule).map(([hour, stationAssignments]) => (
-                  <div key={hour} className="border-b pb-2 last:border-0">
-                    <h3 className="font-medium mb-2">{hour}</h3>
-                    <div className="grid gap-2">
-                      {Object.entries(stationAssignments).map(([station, staffMembers]) => (
-                        <div key={station} className="flex gap-2">
-                          <span className="font-medium">{station}:</span>
-                          <span>{staffMembers.join(", ")}</span>
+                  <Card key={hour} className="p-6 bg-gradient-to-r from-purple-50 to-white">
+                    <h3 className="text-lg font-medium text-purple-900 mb-4 border-b pb-2">
+                      {hour}
+                    </h3>
+                    <div className="grid gap-4">
+                      {Object.entries(stationAssignments).map(([station, staffMembers], index) => (
+                        <div 
+                          key={station} 
+                          className={`flex flex-wrap items-center gap-4 p-3 rounded-lg ${
+                            index % 2 === 0 ? 'bg-white' : 'bg-purple-50'
+                          }`}
+                        >
+                          <span className="font-medium text-purple-900 min-w-[120px]">
+                            {station}:
+                          </span>
+                          <div className="flex flex-wrap gap-2">
+                            {staffMembers.map((member, idx) => (
+                              <span
+                                key={idx}
+                                className="px-3 py-1 bg-purple-100 text-purple-900 rounded-full text-sm"
+                              >
+                                {member}
+                              </span>
+                            ))}
+                          </div>
                         </div>
                       ))}
                     </div>
-                  </div>
+                  </Card>
                 ))}
               </div>
             </section>
