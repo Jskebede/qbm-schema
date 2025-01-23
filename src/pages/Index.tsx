@@ -99,7 +99,7 @@ const Index = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <StaffSection staff={staff} onAddStaff={handleAddStaff} />
+          <StaffSection staff={staff} stations={stations} onAddStaff={handleAddStaff} />
           <StationsSection stations={stations} onAddStation={handleAddStation} />
           {schedule && <ScheduleDisplay schedule={schedule} />}
         </div>

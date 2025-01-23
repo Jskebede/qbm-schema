@@ -9,16 +9,23 @@ interface Staff {
 
 interface StaffSectionProps {
   staff: Staff[];
+  stations: Station[];
   onAddStaff: (name: string, stations: string[]) => void;
 }
 
-export const StaffSection = ({ staff, onAddStaff }: StaffSectionProps) => {
+interface Station {
+  id: number;
+  name: string;
+  requiredStaff: number;
+}
+
+export const StaffSection = ({ staff, stations, onAddStaff }: StaffSectionProps) => {
   return (
     <section className="space-y-4">
       <div className="flex items-center justify-between">
         <h2 className="text-2xl font-semibold text-pink-700">Staff Members</h2>
         <AddStaffDialog
-          stations={staff.flatMap((s) => s.stations).filter((v, i, a) => a.indexOf(v) === i)}
+          stations={stations.map(station => station.name)}
           onAddStaff={onAddStaff}
         />
       </div>
