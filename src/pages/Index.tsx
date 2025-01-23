@@ -1,13 +1,12 @@
 import { useState } from "react";
-import { StaffCard } from "@/components/StaffCard";
-import { StationCard } from "@/components/StationCard";
-import { AddStaffDialog } from "@/components/AddStaffDialog";
-import { AddStationDialog } from "@/components/AddStationDialog";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 import { Calendar } from "lucide-react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Card } from "@/components/ui/card";
+import { StaffSection } from "@/components/StaffSection";
+import { StationsSection } from "@/components/StationsSection";
+import { ScheduleDisplay } from "@/components/ScheduleDisplay";
+import { generateFairSchedule } from "@/utils/scheduleGenerator";
 
 interface Staff {
   id: number;
@@ -21,12 +20,6 @@ interface Station {
   requiredStaff: number;
 }
 
-interface Schedule {
-  [hour: string]: {
-    [station: string]: string[];
-  };
-}
-
 type ScheduleType = "thursday" | "friday";
 
 const scheduleHours = {
@@ -37,7 +30,7 @@ const scheduleHours = {
 const Index = () => {
   const [staff, setStaff] = useState<Staff[]>([]);
   const [stations, setStations] = useState<Station[]>([]);
-  const [schedule, setSchedule] = useState<Schedule | null>(null);
+  const [schedule, setSchedule] = useState<{ [hour: string]: { [station: string]: string[] } } | null>(null);
   const [scheduleType, setScheduleType] = useState<ScheduleType>("thursday");
   const { toast } = useToast();
 
@@ -67,55 +60,20 @@ const Index = () => {
       return;
     }
 
-    const hours = scheduleHours[scheduleType];
-    const newSchedule: Schedule = {};
-
-    // Initialize empty schedule
-    hours.forEach((hour) => {
-      newSchedule[hour] = {};
-      stations.forEach((station) => {
-        newSchedule[hour][station.name] = [];
-      });
-    });
-
-    // For each hour and station, assign staff members
-    hours.forEach((hour) => {
-      stations.forEach((station) => {
-        const availableStaff = staff.filter((member) =>
-          member.stations.includes(station.name)
-        );
-
-        if (availableStaff.length < station.requiredStaff) {
-          toast({
-            title: "Warning",
-            description: `Not enough qualified staff for ${station.name}`,
-            variant: "destructive",
-          });
-          return;
-        }
-
-        // Simple round-robin assignment
-        for (let i = 0; i < station.requiredStaff; i++) {
-          const staffIndex = i % availableStaff.length;
-          newSchedule[hour][station.name].push(availableStaff[staffIndex].name);
-        }
-      });
-    });
-
+    const newSchedule = generateFairSchedule(staff, stations, scheduleHours[scheduleType]);
     setSchedule(newSchedule);
+    
     toast({
       title: "Success",
       description: "Schedule generated successfully",
     });
-
-    console.log("Generated Schedule:", newSchedule);
   };
 
   return (
     <div className="min-h-screen bg-background p-6 animate-fadeIn">
       <div className="max-w-7xl mx-auto space-y-8">
         <div className="flex items-center justify-between">
-          <h1 className="text-4xl font-bold">Bar Schedule Manager</h1>
+          <h1 className="text-4xl font-bold text-pink-700">Bar Schedule Manager</h1>
           <div className="flex items-center gap-4">
             <Select
               value={scheduleType}
@@ -141,89 +99,9 @@ const Index = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <section className="space-y-4">
-            <div className="flex items-center justify-between">
-              <h2 className="text-2xl font-semibold">Staff Members</h2>
-              <AddStaffDialog
-                stations={stations.map((s) => s.name)}
-                onAddStaff={handleAddStaff}
-              />
-            </div>
-            <div className="grid gap-4">
-              {staff.map((member) => (
-                <StaffCard
-                  key={member.id}
-                  name={member.name}
-                  stations={member.stations}
-                />
-              ))}
-              {staff.length === 0 && (
-                <p className="text-muted-foreground text-center py-8">
-                  No staff members added yet
-                </p>
-              )}
-            </div>
-          </section>
-
-          <section className="space-y-4">
-            <div className="flex items-center justify-between">
-              <h2 className="text-2xl font-semibold">Stations</h2>
-              <AddStationDialog onAddStation={handleAddStation} />
-            </div>
-            <div className="grid gap-4">
-              {stations.map((station) => (
-                <StationCard
-                  key={station.id}
-                  name={station.name}
-                  requiredStaff={station.requiredStaff}
-                />
-              ))}
-              {stations.length === 0 && (
-                <p className="text-muted-foreground text-center py-8">
-                  No stations added yet
-                </p>
-              )}
-            </div>
-          </section>
-
-          {schedule && (
-            <section className="col-span-full">
-              <h2 className="text-2xl font-semibold mb-4">Generated Schedule</h2>
-              <div className="grid gap-6">
-                {Object.entries(schedule).map(([hour, stationAssignments]) => (
-                  <Card key={hour} className="p-6 bg-gradient-to-r from-purple-50 to-white">
-                    <h3 className="text-lg font-medium text-purple-900 mb-4 border-b pb-2">
-                      {hour}
-                    </h3>
-                    <div className="grid gap-4">
-                      {Object.entries(stationAssignments).map(([station, staffMembers], index) => (
-                        <div 
-                          key={station} 
-                          className={`flex flex-wrap items-center gap-4 p-3 rounded-lg ${
-                            index % 2 === 0 ? 'bg-white' : 'bg-purple-50'
-                          }`}
-                        >
-                          <span className="font-medium text-purple-900 min-w-[120px]">
-                            {station}:
-                          </span>
-                          <div className="flex flex-wrap gap-2">
-                            {staffMembers.map((member, idx) => (
-                              <span
-                                key={idx}
-                                className="px-3 py-1 bg-purple-100 text-purple-900 rounded-full text-sm"
-                              >
-                                {member}
-                              </span>
-                            ))}
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  </Card>
-                ))}
-              </div>
-            </section>
-          )}
+          <StaffSection staff={staff} onAddStaff={handleAddStaff} />
+          <StationsSection stations={stations} onAddStation={handleAddStation} />
+          {schedule && <ScheduleDisplay schedule={schedule} />}
         </div>
       </div>
     </div>
