@@ -40,7 +40,7 @@ const Index = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setLoading(false);
-    }, 1500);
+    }, 2500); // Changed from 1500 to 2500 milliseconds
     return () => clearTimeout(timer);
   }, []);
 
