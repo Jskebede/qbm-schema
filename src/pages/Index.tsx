@@ -7,6 +7,7 @@ import { StaffSection } from "@/components/StaffSection";
 import { StationsSection } from "@/components/StationsSection";
 import { ScheduleDisplay } from "@/components/ScheduleDisplay";
 import { generateFairSchedule } from "@/utils/scheduleGenerator";
+import { HowToUseDialog } from "@/components/HowToUseDialog";
 
 interface Staff {
   id: number;
@@ -75,6 +76,7 @@ const Index = () => {
         <div className="flex items-center justify-between">
           <h1 className="text-4xl font-bold text-pink-700">Bar Schedule Manager</h1>
           <div className="flex items-center gap-4">
+            <HowToUseDialog />
             <Select
               value={scheduleType}
               onValueChange={(value: ScheduleType) => setScheduleType(value)}
