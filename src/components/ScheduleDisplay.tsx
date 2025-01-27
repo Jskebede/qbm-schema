@@ -1,4 +1,4 @@
-import { Card } from "@/components/ui/card";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 
 interface ScheduleDisplayProps {
   schedule: {
@@ -9,41 +9,60 @@ interface ScheduleDisplayProps {
 }
 
 export const ScheduleDisplay = ({ schedule }: ScheduleDisplayProps) => {
+  // Get unique stations across all hours
+  const allStations = Array.from(
+    new Set(
+      Object.values(schedule).flatMap(hourSchedule => 
+        Object.keys(hourSchedule)
+      )
+    )
+  ).sort();
+
+  const hours = Object.keys(schedule);
+
   return (
-    <section className="col-span-full">
-      <h2 className="text-2xl font-semibold mb-4 text-pink-700">Generated Schedule</h2>
-      <div className="grid gap-6">
-        {Object.entries(schedule).map(([hour, stationAssignments]) => (
-          <Card key={hour} className="p-6 bg-gradient-to-r from-pink-50 to-white">
-            <h3 className="text-lg font-medium text-pink-700 mb-4 border-b pb-2">
-              {hour}
-            </h3>
-            <div className="grid gap-4">
-              {Object.entries(stationAssignments).map(([station, staffMembers], index) => (
-                <div 
+    <section className="col-span-full bg-white rounded-lg shadow">
+      <h2 className="text-xl font-semibold mb-2 text-pink-700">Generated Schedule</h2>
+      <div className="overflow-x-auto">
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHead className="w-24 bg-pink-50">Time</TableHead>
+              {allStations.map((station) => (
+                <TableHead 
                   key={station} 
-                  className={`flex flex-wrap items-center gap-4 p-3 rounded-lg ${
-                    index % 2 === 0 ? 'bg-white' : 'bg-pink-50'
-                  }`}
+                  className="bg-pink-50 text-pink-700 font-medium"
                 >
-                  <span className="font-medium text-pink-700 min-w-[120px]">
-                    {station}:
-                  </span>
-                  <div className="flex flex-wrap gap-2">
-                    {staffMembers.map((member, idx) => (
+                  {station}
+                </TableHead>
+              ))}
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {hours.map((hour) => (
+              <TableRow key={hour}>
+                <TableCell className="font-medium bg-pink-50 text-pink-700">
+                  {hour}
+                </TableCell>
+                {allStations.map((station) => (
+                  <TableCell 
+                    key={station}
+                    className="p-2 text-sm border"
+                  >
+                    {schedule[hour][station]?.map((staff, idx) => (
                       <span
                         key={idx}
-                        className="px-3 py-1 bg-pink-100 text-pink-700 rounded-full text-sm"
+                        className="inline-block px-2 py-1 m-0.5 bg-pink-100 text-pink-700 rounded-full text-xs"
                       >
-                        {member}
+                        {staff}
                       </span>
                     ))}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </Card>
-        ))}
+                  </TableCell>
+                ))}
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
       </div>
     </section>
   );
