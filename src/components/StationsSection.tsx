@@ -1,5 +1,6 @@
 import { StationCard } from "./StationCard";
 import { AddStationDialog } from "./AddStationDialog";
+import { useToast } from "@/hooks/use-toast";
 
 interface Station {
   id: number;
@@ -10,9 +11,20 @@ interface Station {
 interface StationsSectionProps {
   stations: Station[];
   onAddStation: (name: string, requiredStaff: number) => void;
+  onDeleteStation: (id: number) => void;
 }
 
-export const StationsSection = ({ stations, onAddStation }: StationsSectionProps) => {
+export const StationsSection = ({ stations, onAddStation, onDeleteStation }: StationsSectionProps) => {
+  const { toast } = useToast();
+
+  const handleDelete = (station: Station) => {
+    onDeleteStation(station.id);
+    toast({
+      title: "Success",
+      description: `Station "${station.name}" has been deleted`,
+    });
+  };
+
   return (
     <section className="space-y-4">
       <div className="flex items-center justify-between">
@@ -25,6 +37,7 @@ export const StationsSection = ({ stations, onAddStation }: StationsSectionProps
             key={station.id}
             name={station.name}
             requiredStaff={station.requiredStaff}
+            onDelete={() => handleDelete(station)}
           />
         ))}
         {stations.length === 0 && (

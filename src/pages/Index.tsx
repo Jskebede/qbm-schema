@@ -38,7 +38,6 @@ const Index = () => {
   const { toast } = useToast();
 
   useEffect(() => {
-    // Simulate loading for 1.5 seconds
     const timer = setTimeout(() => {
       setLoading(false);
     }, 1500);
@@ -53,12 +52,22 @@ const Index = () => {
     });
   };
 
+  const handleDeleteStaff = (id: number) => {
+    setStaff(staff.filter(member => member.id !== id));
+    setSchedule(null);
+  };
+
   const handleAddStation = (name: string, requiredStaff: number) => {
     setStations([...stations, { id: Date.now(), name, requiredStaff }]);
     toast({
       title: "Success",
       description: "Station added successfully",
     });
+  };
+
+  const handleDeleteStation = (id: number) => {
+    setStations(stations.filter(station => station.id !== id));
+    setSchedule(null);
   };
 
   const generateSchedule = () => {
@@ -127,13 +136,21 @@ const Index = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <StaffSection staff={staff} stations={stations} onAddStaff={handleAddStaff} />
-          <StationsSection stations={stations} onAddStation={handleAddStation} />
+          <StaffSection 
+            staff={staff} 
+            stations={stations} 
+            onAddStaff={handleAddStaff} 
+            onDeleteStaff={handleDeleteStaff}
+          />
+          <StationsSection 
+            stations={stations} 
+            onAddStation={handleAddStation} 
+            onDeleteStation={handleDeleteStation}
+          />
           {schedule && <ScheduleDisplay schedule={schedule} />}
         </div>
       </div>
 
-      {/* Fixed QBM Logo in bottom right corner */}
       <div className="fixed bottom-4 right-4 z-50">
         <img 
           src="/lovable-uploads/63dc340b-e8d4-40cc-862f-5fd6c3773e01.png" 

@@ -1,5 +1,6 @@
 import { StaffCard } from "./StaffCard";
 import { AddStaffDialog } from "./AddStaffDialog";
+import { useToast } from "@/hooks/use-toast";
 
 interface Staff {
   id: number;
@@ -11,6 +12,7 @@ interface StaffSectionProps {
   staff: Staff[];
   stations: Station[];
   onAddStaff: (name: string, stations: string[]) => void;
+  onDeleteStaff: (id: number) => void;
 }
 
 interface Station {
@@ -19,7 +21,17 @@ interface Station {
   requiredStaff: number;
 }
 
-export const StaffSection = ({ staff, stations, onAddStaff }: StaffSectionProps) => {
+export const StaffSection = ({ staff, stations, onAddStaff, onDeleteStaff }: StaffSectionProps) => {
+  const { toast } = useToast();
+
+  const handleDelete = (staffMember: Staff) => {
+    onDeleteStaff(staffMember.id);
+    toast({
+      title: "Success",
+      description: `Staff member "${staffMember.name}" has been deleted`,
+    });
+  };
+
   return (
     <section className="space-y-4">
       <div className="flex items-center justify-between">
@@ -35,6 +47,7 @@ export const StaffSection = ({ staff, stations, onAddStaff }: StaffSectionProps)
             key={member.id}
             name={member.name}
             stations={member.stations}
+            onDelete={() => handleDelete(member)}
           />
         ))}
         {staff.length === 0 && (
