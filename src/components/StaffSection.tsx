@@ -8,9 +8,15 @@ interface Staff {
   stations: string[];
 }
 
+interface Station {
+  id: number;
+  name: string;
+  requiredStaff: number;
+}
+
 interface StaffSectionProps {
   staff: Staff[];
-  stations: { id: number; name: string }[];
+  stations: Station[];
   onAddStaff: (name: string, selectedStations: string[]) => void;
   onDeleteStaff: (id: number) => void;
 }

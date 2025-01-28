@@ -3,41 +3,42 @@ import { Badge } from "@/components/ui/badge";
 import { UserCircle, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-interface StaffCardProps {
+interface Staff {
+  id: number;
   name: string;
   stations: string[];
-  onClick?: () => void;
-  onDelete?: () => void;
 }
 
-export const StaffCard = ({ name, stations, onClick, onDelete }: StaffCardProps) => {
+interface StaffCardProps {
+  staff: Staff;
+  onDelete: (id: number) => void;
+}
+
+export const StaffCard = ({ staff, onDelete }: StaffCardProps) => {
   const handleDelete = (e: React.MouseEvent) => {
     e.stopPropagation();
-    onDelete?.();
+    onDelete(staff.id);
   };
 
   return (
     <Card 
       className="hover:shadow-lg transition-all duration-300 cursor-pointer animate-fadeIn relative group"
-      onClick={onClick}
     >
       <CardHeader className="flex flex-row items-center gap-4">
         <UserCircle className="w-8 h-8 text-muted-foreground" />
-        <CardTitle className="text-lg font-medium">{name}</CardTitle>
-        {onDelete && (
-          <Button
-            variant="ghost"
-            size="icon"
-            className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity"
-            onClick={handleDelete}
-          >
-            <Trash2 className="h-4 w-4 text-destructive" />
-          </Button>
-        )}
+        <CardTitle className="text-lg font-medium">{staff.name}</CardTitle>
+        <Button
+          variant="ghost"
+          size="icon"
+          className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity"
+          onClick={handleDelete}
+        >
+          <Trash2 className="h-4 w-4 text-destructive" />
+        </Button>
       </CardHeader>
       <CardContent>
         <div className="flex flex-wrap gap-2">
-          {stations.map((station) => (
+          {staff.stations.map((station) => (
             <Badge key={station} variant="secondary">
               {station}
             </Badge>
