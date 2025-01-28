@@ -26,7 +26,10 @@ export const StaffSection = ({ staff, stations, onAddStaff, onDeleteStaff }: Sta
     <div className="bg-white/10 p-6 rounded-lg shadow-lg">
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-2xl font-bold text-white">Grisar</h2>
-        <AddStaffDialog onAddStaff={onAddStaff} stations={stations} />
+        <AddStaffDialog 
+          onAddStaff={onAddStaff} 
+          stations={stations.map(station => station.name)} 
+        />
       </div>
       <div className="space-y-4">
         {staff.map((member) => (
