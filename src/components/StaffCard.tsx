@@ -1,6 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { UserCircle, Trash2 } from "lucide-react";
+import { User, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 interface Staff {
@@ -22,15 +22,17 @@ export const StaffCard = ({ staff, onDelete }: StaffCardProps) => {
 
   return (
     <Card 
-      className="hover:shadow-lg transition-all duration-300 cursor-pointer animate-fadeIn relative group"
+      className="hover:shadow-lg transition-all duration-300 cursor-pointer animate-fadeIn relative group bg-white/5"
     >
-      <CardHeader className="flex flex-row items-center gap-4">
-        <UserCircle className="w-8 h-8 text-muted-foreground" />
-        <CardTitle className="text-lg font-medium">{staff.name}</CardTitle>
+      <CardHeader className="flex flex-row items-center justify-between">
+        <div className="flex items-center gap-3">
+          <User className="w-6 h-6 text-white" />
+          <CardTitle className="text-lg font-medium text-white">{staff.name}</CardTitle>
+        </div>
         <Button
           variant="ghost"
           size="icon"
-          className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity"
+          className="opacity-0 group-hover:opacity-100 transition-opacity"
           onClick={handleDelete}
         >
           <Trash2 className="h-4 w-4 text-destructive" />
@@ -38,8 +40,12 @@ export const StaffCard = ({ staff, onDelete }: StaffCardProps) => {
       </CardHeader>
       <CardContent>
         <div className="flex flex-wrap gap-2">
-          {staff.stations.map((station) => (
-            <Badge key={station} variant="secondary">
+          {staff.stations.map((station, index) => (
+            <Badge 
+              key={index} 
+              variant="secondary" 
+              className="text-sm bg-white/10 text-white"
+            >
               {station}
             </Badge>
           ))}
