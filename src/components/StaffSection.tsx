@@ -1,6 +1,6 @@
-import { StaffCard } from "./StaffCard";
+import { Button } from "@/components/ui/button";
 import { AddStaffDialog } from "./AddStaffDialog";
-import { useToast } from "@/hooks/use-toast";
+import { StaffCard } from "./StaffCard";
 
 interface Staff {
   id: number;
@@ -10,52 +10,23 @@ interface Staff {
 
 interface StaffSectionProps {
   staff: Staff[];
-  stations: Station[];
-  onAddStaff: (name: string, stations: string[]) => void;
+  stations: { id: number; name: string }[];
+  onAddStaff: (name: string, selectedStations: string[]) => void;
   onDeleteStaff: (id: number) => void;
 }
 
-interface Station {
-  id: number;
-  name: string;
-  requiredStaff: number;
-}
-
 export const StaffSection = ({ staff, stations, onAddStaff, onDeleteStaff }: StaffSectionProps) => {
-  const { toast } = useToast();
-
-  const handleDelete = (staffMember: Staff) => {
-    onDeleteStaff(staffMember.id);
-    toast({
-      title: "Klart",
-      description: `Grisen "${staffMember.name}" har tagits bort`,
-    });
-  };
-
   return (
-    <section className="space-y-4">
-      <div className="flex items-center justify-between">
-        <h2 className="text-2xl font-semibold text-pink-700">Grisar</h2>
-        <AddStaffDialog
-          stations={stations.map(station => station.name)}
-          onAddStaff={onAddStaff}
-        />
+    <div className="bg-white/10 p-6 rounded-lg shadow-lg">
+      <div className="flex justify-between items-center mb-4">
+        <h2 className="text-2xl font-bold text-white">Grisar</h2>
+        <AddStaffDialog onAddStaff={onAddStaff} stations={stations} />
       </div>
-      <div className="grid gap-4">
+      <div className="space-y-4">
         {staff.map((member) => (
-          <StaffCard
-            key={member.id}
-            name={member.name}
-            stations={member.stations}
-            onDelete={() => handleDelete(member)}
-          />
+          <StaffCard key={member.id} staff={member} onDelete={onDeleteStaff} />
         ))}
-        {staff.length === 0 && (
-          <p className="text-muted-foreground text-center py-8">
-            Inga Grisar tillagda än
-          </p>
-        )}
       </div>
-    </section>
+    </div>
   );
 };

@@ -112,18 +112,20 @@ const Index = () => {
             <h1 className="text-4xl font-bold text-white">QBM Pub-Schema</h1>
           </div>
           <div className="w-1/4 flex justify-end gap-4">
-            <Select
-              value={scheduleType}
-              onValueChange={(value: ScheduleType) => setScheduleType(value)}
-            >
-              <SelectTrigger className="w-[180px] bg-white text-black">
-                <SelectValue placeholder="Välj schema typ" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="thursday">Torsdag Pub (17-01)</SelectItem>
-                <SelectItem value="friday">Fredag/Tenta Pub (19-03)</SelectItem>
-              </SelectContent>
-            </Select>
+            <div className="relative z-50">
+              <Select
+                value={scheduleType}
+                onValueChange={(value: ScheduleType) => setScheduleType(value)}
+              >
+                <SelectTrigger className="w-[180px] bg-white text-black">
+                  <SelectValue placeholder="Välj schema typ" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="thursday">Torsdag Pub (17-01)</SelectItem>
+                  <SelectItem value="friday">Fredag/Tenta Pub (19-03)</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
             <Button 
               className="gap-2 bg-white text-black hover:bg-gray-200" 
               variant="outline"

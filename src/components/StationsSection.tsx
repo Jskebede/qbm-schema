@@ -1,6 +1,6 @@
-import { StationCard } from "./StationCard";
+import { Button } from "@/components/ui/button";
 import { AddStationDialog } from "./AddStationDialog";
-import { useToast } from "@/hooks/use-toast";
+import { StationCard } from "./StationCard";
 
 interface Station {
   id: number;
@@ -15,37 +15,17 @@ interface StationsSectionProps {
 }
 
 export const StationsSection = ({ stations, onAddStation, onDeleteStation }: StationsSectionProps) => {
-  const { toast } = useToast();
-
-  const handleDelete = (station: Station) => {
-    onDeleteStation(station.id);
-    toast({
-      title: "Success",
-      description: `Station "${station.name}" has been deleted`,
-    });
-  };
-
   return (
-    <section className="space-y-4">
-      <div className="flex items-center justify-between">
-        <h2 className="text-2xl font-semibold text-pink-700">Stations</h2>
+    <div className="bg-white/10 p-6 rounded-lg shadow-lg">
+      <div className="flex justify-between items-center mb-4">
+        <h2 className="text-2xl font-bold text-white">Stations</h2>
         <AddStationDialog onAddStation={onAddStation} />
       </div>
-      <div className="grid gap-4">
+      <div className="space-y-4">
         {stations.map((station) => (
-          <StationCard
-            key={station.id}
-            name={station.name}
-            requiredStaff={station.requiredStaff}
-            onDelete={() => handleDelete(station)}
-          />
+          <StationCard key={station.id} station={station} onDelete={onDeleteStation} />
         ))}
-        {stations.length === 0 && (
-          <p className="text-muted-foreground text-center py-8">
-            No stations added yet
-          </p>
-        )}
       </div>
-    </section>
+    </div>
   );
 };
