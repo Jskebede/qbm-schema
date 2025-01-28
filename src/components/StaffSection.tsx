@@ -23,7 +23,7 @@ interface StaffSectionProps {
 
 export const StaffSection = ({ staff, stations, onAddStaff, onDeleteStaff }: StaffSectionProps) => {
   return (
-    <div className="bg-white/10 p-6 rounded-lg shadow-lg">
+    <div className="p-6 rounded-lg">
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-2xl font-bold text-white">Grisar</h2>
         <AddStaffDialog 

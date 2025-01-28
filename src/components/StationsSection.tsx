@@ -16,7 +16,7 @@ interface StationsSectionProps {
 
 export const StationsSection = ({ stations, onAddStation, onDeleteStation }: StationsSectionProps) => {
   return (
-    <div className="bg-white/10 p-6 rounded-lg shadow-lg">
+    <div className="p-6 rounded-lg">
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-2xl font-bold text-white">Stations</h2>
         <AddStationDialog onAddStation={onAddStation} />

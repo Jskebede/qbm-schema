@@ -32,10 +32,10 @@ export const StaffCard = ({ staff, onDelete }: StaffCardProps) => {
         <Button
           variant="ghost"
           size="icon"
-          className="opacity-0 group-hover:opacity-100 transition-opacity"
+          className="opacity-0 group-hover:opacity-100 transition-opacity hover:bg-black/20"
           onClick={handleDelete}
         >
-          <Trash2 className="h-4 w-4 text-destructive" />
+          <Trash2 className="h-6 w-6 text-[#ea384c] hover:text-white transition-colors" />
         </Button>
       </CardHeader>
       <CardContent>
