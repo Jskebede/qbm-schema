@@ -109,14 +109,14 @@ const Index = () => {
             <HowToUseDialog />
           </div>
           <div className="w-2/4 text-center">
-            <h1 className="text-4xl font-bold text-pink-700">QBM Pub-Schema</h1>
+            <h1 className="text-4xl font-bold text-white">QBM Pub-Schema</h1>
           </div>
           <div className="w-1/4 flex justify-end gap-4">
             <Select
               value={scheduleType}
               onValueChange={(value: ScheduleType) => setScheduleType(value)}
             >
-              <SelectTrigger className="w-[180px]">
+              <SelectTrigger className="w-[180px] bg-white text-black">
                 <SelectValue placeholder="Välj schema typ" />
               </SelectTrigger>
               <SelectContent>
@@ -125,7 +125,7 @@ const Index = () => {
               </SelectContent>
             </Select>
             <Button 
-              className="gap-2" 
+              className="gap-2 bg-white text-black hover:bg-gray-200" 
               variant="outline"
               onClick={generateSchedule}
             >
