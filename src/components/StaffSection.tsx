@@ -27,15 +27,15 @@ export const StaffSection = ({ staff, stations, onAddStaff, onDeleteStaff }: Sta
   const handleDelete = (staffMember: Staff) => {
     onDeleteStaff(staffMember.id);
     toast({
-      title: "Success",
-      description: `Staff member "${staffMember.name}" has been deleted`,
+      title: "Klart",
+      description: `Grisen "${staffMember.name}" har tagits bort`,
     });
   };
 
   return (
     <section className="space-y-4">
       <div className="flex items-center justify-between">
-        <h2 className="text-2xl font-semibold text-pink-700">Staff Members</h2>
+        <h2 className="text-2xl font-semibold text-pink-700">Grisar</h2>
         <AddStaffDialog
           stations={stations.map(station => station.name)}
           onAddStaff={onAddStaff}
@@ -52,7 +52,7 @@ export const StaffSection = ({ staff, stations, onAddStaff, onDeleteStaff }: Sta
         ))}
         {staff.length === 0 && (
           <p className="text-muted-foreground text-center py-8">
-            No staff members added yet
+            Inga Grisar tillagda än
           </p>
         )}
       </div>

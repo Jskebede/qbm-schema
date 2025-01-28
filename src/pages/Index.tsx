@@ -109,7 +109,7 @@ const Index = () => {
             <HowToUseDialog />
           </div>
           <div className="w-2/4 text-center">
-            <h1 className="text-4xl font-bold text-pink-700">Bar Schedule Manager</h1>
+            <h1 className="text-4xl font-bold text-pink-700">QBM Pub-Schema</h1>
           </div>
           <div className="w-1/4 flex justify-end gap-4">
             <Select
@@ -117,11 +117,11 @@ const Index = () => {
               onValueChange={(value: ScheduleType) => setScheduleType(value)}
             >
               <SelectTrigger className="w-[180px]">
-                <SelectValue placeholder="Select schedule type" />
+                <SelectValue placeholder="Välj schema typ" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="thursday">Thursday Pub (17-01)</SelectItem>
-                <SelectItem value="friday">Friday/Tenta Pub (19-03)</SelectItem>
+                <SelectItem value="thursday">Torsdag Pub (17-01)</SelectItem>
+                <SelectItem value="friday">Fredag/Tenta Pub (19-03)</SelectItem>
               </SelectContent>
             </Select>
             <Button 
@@ -130,7 +130,7 @@ const Index = () => {
               onClick={generateSchedule}
             >
               <Calendar className="w-4 h-4" />
-              Generate Schedule
+              Generera Schema
             </Button>
           </div>
         </div>
