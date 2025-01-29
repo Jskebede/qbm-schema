@@ -108,7 +108,7 @@ const Index = () => {
           <div className="w-1/4">
             <HowToUseDialog />
           </div>
-          <div className="w-2/4 text-center flex items-center justify-center gap-4">
+          <div className="w-2/4 text-center flex items-center justify-start gap-4 pl-8">
             <img 
               src="/lovable-uploads/63dc340b-e8d4-40cc-862f-5fd6c3773e01.png" 
               alt="QBM Logo" 
