@@ -122,7 +122,7 @@ const Index = () => {
                 value={scheduleType}
                 onValueChange={(value: ScheduleType) => setScheduleType(value)}
               >
-                <SelectTrigger className="w-[180px] bg-white text-black">
+                <SelectTrigger className="w-[180px] bg-white text-black shadow-sm">
                   <SelectValue placeholder="Välj schema typ" />
                 </SelectTrigger>
                 <SelectContent>
@@ -132,7 +132,7 @@ const Index = () => {
               </Select>
             </div>
             <Button 
-              className="gap-2 bg-white text-black hover:bg-gray-200" 
+              className="gap-2 bg-white text-black hover:bg-gray-200 shadow-sm" 
               variant="outline"
               onClick={generateSchedule}
             >
