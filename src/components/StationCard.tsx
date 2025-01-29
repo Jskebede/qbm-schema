@@ -32,10 +32,10 @@ export const StationCard = ({ station, onDelete }: StationCardProps) => {
         <Button
           variant="ghost"
           size="icon"
-          className="opacity-0 group-hover:opacity-100 transition-opacity hover:bg-black/20"
+          className="hover:bg-black/20 transition-all duration-200"
           onClick={handleDelete}
         >
-          <Trash2 className="h-6 w-6 text-[#ea384c] hover:text-white transition-colors" />
+          <Trash2 className="h-6 w-6 text-white hover:text-[#ea384c] transition-colors" />
         </Button>
       </CardHeader>
       <CardContent>

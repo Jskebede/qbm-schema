@@ -108,7 +108,12 @@ const Index = () => {
           <div className="w-1/4">
             <HowToUseDialog />
           </div>
-          <div className="w-2/4 text-center">
+          <div className="w-2/4 text-center flex items-center justify-center gap-4">
+            <img 
+              src="/lovable-uploads/63dc340b-e8d4-40cc-862f-5fd6c3773e01.png" 
+              alt="QBM Logo" 
+              className="w-12 h-12"
+            />
             <h1 className="text-4xl font-bold text-white">QBM Pub-Schema</h1>
           </div>
           <div className="w-1/4 flex justify-end gap-4">
@@ -149,8 +154,13 @@ const Index = () => {
             onAddStation={handleAddStation} 
             onDeleteStation={handleDeleteStation}
           />
-          {schedule && <ScheduleDisplay schedule={schedule} />}
         </div>
+        
+        {schedule && (
+          <div className="w-full">
+            <ScheduleDisplay schedule={schedule} />
+          </div>
+        )}
       </div>
 
       <div className="fixed bottom-4 right-4 z-50">
