@@ -23,11 +23,12 @@ export const HowToUseDialog = () => {
         </DialogHeader>
         <div className="space-y-4">
           <div>
-            <h3 className="font-medium text-white-700 mb-2">Steg 1: Skapa Stationer</h3>
+            <h3 className="font-medium text-pink-700 mb-2">Steg 1: Skapa Stationer</h3>
             <p className="text-sm text-muted-foreground">
               Börja alltid med att skapa dina stationer. Använd "Station" knappen för att lägga till arbetsstationer
               och ange hur många Grisar som behövs för varje station. 
-              </p>  
+              </p>
+              <br />  
               <hr/>
               <br />
               <p className="text-sm text-muted-foreground">
@@ -36,7 +37,7 @@ export const HowToUseDialog = () => {
             </p>
           </div>
           <div>
-            <h3 className="font-medium text-white-700 mb-2">Steg 2: Lägg till Grisar</h3>
+            <h3 className="font-medium text-pink-700 mb-2">Steg 2: Lägg till Grisar</h3>
             <p className="text-sm text-muted-foreground">
               Lägg till Grisar enligt dina totala stationskrav. Till exempel:
             </p>
@@ -46,7 +47,7 @@ export const HowToUseDialog = () => {
             </ul>
           </div>
           <div>
-            <h3 className="font-medium text-white-700 mb-2">Steg 3: Generera Schema</h3>
+            <h3 className="font-medium text-pink-700 mb-2">Steg 3: Generera Schema</h3>
             <p className="text-sm text-muted-foreground">
               När du har lagt till alla stationer och Grisar, klicka på "Generera Schema" knappen
               för att skapa ditt schema. Systemet kommer automatiskt att tilldela Grisar till stationer baserat på
@@ -54,7 +55,7 @@ export const HowToUseDialog = () => {
             </p>
           </div>
           <div>
-            <h3 className="font-medium text-white-700 mb-2">OBS: Avstå helst från att använda flygande </h3>
+            <h3 className="font-medium text-pink-700 mb-2">OBS: Avstå helst från att använda flygande </h3>
             <p className="text-sm text-muted-foreground">
                 Vill du så gärna lägga till dig själv i Schemat som flygande så gör du såhär: 
                 1. Lägg till alla stationer FÖRUTOM flygande. 
