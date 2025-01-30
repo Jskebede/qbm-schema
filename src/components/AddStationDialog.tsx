@@ -56,9 +56,10 @@ export const AddStationDialog = ({ onAddStation }: AddStationDialogProps) => {
 
     if (hasError) return;
 
-    stations.forEach(station => {
+    // Create all stations at once
+    for (const station of stations) {
       onAddStation(station.name, station.requiredStaff);
-    });
+    }
 
     // Reset the form and close dialog
     setLocationType("");
