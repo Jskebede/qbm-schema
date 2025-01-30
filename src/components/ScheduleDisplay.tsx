@@ -83,7 +83,7 @@ export const ScheduleDisplay = ({ schedule }: ScheduleDisplayProps) => {
                           key={idx}
                           className={`
                             inline-block px-3 py-1 
-                            bg-white
+                            bg-white text-black
                             border-2 ${getStaffColor(staff)}
                             rounded-full text-xs font-medium
                             shadow-sm
