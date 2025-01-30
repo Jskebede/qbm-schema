@@ -32,7 +32,7 @@ export const HowToUseDialog = () => {
               <hr/>
               <br />
               <p className="text-sm text-muted-foreground">
-              (!!!VIKTIGT!!! Pga min konstiga algorithm så lägg till "Plock" stationen sist.)
+              (!!!VIKTIGT!!! Pga min konstiga algorithm så lägg till "Plock" STATIONEN SIST.)
               (Detta är ända momentet som det behövs att använda tankekraft, då du behöver veta hur många det är som jobbar och hur många av dem grisarna man vill använda på varje station.)
             </p>
           </div>
@@ -44,6 +44,7 @@ export const HowToUseDialog = () => {
             <ul className="list-disc list-inside text-sm text-muted-foreground mt-2 space-y-1">
               <li>Om du har 3 barplatser, 2 entréplatser och 1 plockplats</li>
               <li>Behöver du lägga till 6 Grisar totalt (3 + 2 + 1)</li>
+              <li>Använd "Markera alla" knappen för att ge grisen alla stationer</li>
             </ul>
           </div>
           <div>
@@ -55,7 +56,7 @@ export const HowToUseDialog = () => {
             </p>
           </div>
           <div>
-            <h3 className="font-medium text-pink-700 mb-2">OBS: Avstå helst från att använda flygande </h3>
+            <h3 className="font-medium text-pink-700 mb-2">Användning av flygande position</h3>
             <p className="text-sm text-muted-foreground">
                 Vill du så gärna lägga till dig själv i Schemat som flygande så gör du såhär: 
                 1. Lägg till alla stationer FÖRUTOM flygande. 
