@@ -14,7 +14,7 @@ export const HowToUseDialog = () => {
       <DialogTrigger asChild>
         <Button variant="outline" className="gap-2">
           <HelpCircle className="w-4 h-4" />
-          Hur fuck gör jag??
+          Hur gör jag??
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
@@ -44,7 +44,14 @@ export const HowToUseDialog = () => {
             <p className="text-sm text-muted-foreground">
               När du har lagt till alla stationer och Grisar, klicka på "Generera Schema" knappen
               för att skapa ditt schema. Systemet kommer automatiskt att tilldela Grisar till stationer baserat på
-              deras förmågor.
+              deras markerade stationer.
+            </p>
+          </div>
+          <div>
+            <h3 className="font-medium text-pink-700 mb-2">OBS: Använd dig helst inte av FLYGANDE </h3>
+            <p className="text-sm text-muted-foreground">
+              Användning av Flygande är bara jobbigare då man behöver först lägga in alla andra stationer, vilka som jobbar, sedan lägga till Flygande i efterhand. 
+              + Alla vet att du ändå gör vad du vill så flexa inte med att lägga in dig själv som flygande. 
             </p>
           </div>
         </div>

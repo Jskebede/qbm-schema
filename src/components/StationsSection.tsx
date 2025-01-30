@@ -18,7 +18,7 @@ export const StationsSection = ({ stations, onAddStation, onDeleteStation }: Sta
   return (
     <div className="p-6 rounded-lg">
       <div className="flex justify-between items-center mb-4">
-        <h2 className="text-2xl font-bold text-white">Stations</h2>
+        <h2 className="text-2xl font-bold text-white">Stationer</h2>
         <AddStationDialog onAddStation={onAddStation} />
       </div>
       <div className="space-y-4">
