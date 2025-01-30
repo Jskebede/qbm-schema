@@ -62,9 +62,9 @@ export const HowToUseDialog = () => {
                 <ul className="list-disc list-inside text-sm text-muted-foreground mt-2 space-y-1">
             
                 <li>1. Lägg till alla stationer FÖRUTOM flygande.</li>
-                <li>2. Lägg till alla som jobbar (Förutom dig själv) och markera dem för alla stationer.</li>
+                <li>2. Lägg till alla som jobbar (Förutom dig själv) och       markera dem för alla stationer.</li>
                 <li>3. Lägg till stationen Flygande.</li>
-                <li>4. Lägg till dig själv i gris listan och markera endast "Flygande".</li> 
+                <li>4. Lägg till dig själv i gris listan och markera endast       "Flygande".</li> 
                 <li>5. Generera Schema.</li>
             </ul>
             </p>
