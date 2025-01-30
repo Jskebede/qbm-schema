@@ -55,33 +55,33 @@ export const AddStaffDialog = ({ stations, onAddStaff }: AddStaffDialogProps) =>
       <DialogTrigger asChild>
         <Button className="gap-2 shadow-sm">
           <Plus className="w-4 h-4" />
-          Add Staff
+          Lägg till Gris
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Add New Staff Member</DialogTitle>
+          <DialogTitle>Lägg till ny Gris</DialogTitle>
         </DialogHeader>
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="space-y-2">
-            <Label htmlFor="name">Name</Label>
+            <Label htmlFor="name">Namn</Label>
             <Input
               id="name"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              placeholder="Enter staff name"
+              placeholder="Namn på Gris"
             />
           </div>
           <div className="space-y-2">
             <div className="flex items-center justify-between mb-2">
-              <Label>Stations</Label>
+              <Label>Stationer</Label>
               <div className="flex items-center space-x-2">
                 <Checkbox
                   id="selectAll"
                   checked={areAllSelected}
                   onCheckedChange={handleSelectAll}
                 />
-                <Label htmlFor="selectAll" className="text-sm text-muted-foreground">Select All</Label>
+                <Label htmlFor="selectAll" className="text-sm text-muted-foreground">Markera alla</Label>
               </div>
             </div>
             <div className="grid grid-cols-2 gap-4">
@@ -103,7 +103,7 @@ export const AddStaffDialog = ({ stations, onAddStaff }: AddStaffDialogProps) =>
               ))}
             </div>
           </div>
-          <Button type="submit" className="w-full">Add Staff Member</Button>
+          <Button type="submit" className="w-full">Lägg till Gris</Button>
         </form>
       </DialogContent>
     </Dialog>

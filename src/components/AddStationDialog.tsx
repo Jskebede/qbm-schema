@@ -44,12 +44,12 @@ export const AddStationDialog = ({ onAddStation }: AddStationDialogProps) => {
       <DialogTrigger asChild>
         <Button className="gap-2 shadow-sm">
           <Plus className="w-4 h-4" />
-          Add Station
+          Lägg till Station
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Add New Station</DialogTitle>
+          <DialogTitle>Lägg till Station</DialogTitle>
         </DialogHeader>
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="space-y-2">
@@ -58,7 +58,7 @@ export const AddStationDialog = ({ onAddStation }: AddStationDialogProps) => {
               id="name"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              placeholder="Enter station name"
+              placeholder="Station Namn"
             />
           </div>
           <div className="space-y-2">
@@ -72,7 +72,7 @@ export const AddStationDialog = ({ onAddStation }: AddStationDialogProps) => {
               placeholder="Enter required staff number"
             />
           </div>
-          <Button type="submit" className="w-full">Add Station</Button>
+          <Button type="submit" className="w-full">Lägg till Station</Button>
         </form>
       </DialogContent>
     </Dialog>

@@ -26,7 +26,7 @@ export const HowToUseDialog = () => {
             <h3 className="font-medium text-pink-700 mb-2">Steg 1: Skapa Stationer</h3>
             <p className="text-sm text-muted-foreground">
               Börja alltid med att skapa dina stationer. Använd "Lägg till Station" knappen för att lägga till varje arbetsstation
-              och ange hur många Grisar som behövs för varje.
+              och ange hur många Grisar som behövs för varje station. Detta är ända momentet som det behövs att använda tankekraft, då du behöver veta hur många det är som jobbar och hur många av dem grisarna man vill använda på varje station.
             </p>
           </div>
           <div>
@@ -48,10 +48,14 @@ export const HowToUseDialog = () => {
             </p>
           </div>
           <div>
-            <h3 className="font-medium text-pink-700 mb-2">OBS: Använd dig helst inte av FLYGANDE </h3>
+            <h3 className="font-medium text-pink-700 mb-2">OBS: Avstå helst från att använda flygande </h3>
             <p className="text-sm text-muted-foreground">
-              Användning av Flygande är bara jobbigare då man behöver först lägga in alla andra stationer, vilka som jobbar, sedan lägga till Flygande i efterhand. 
-              + Alla vet att du ändå gör vad du vill så flexa inte med att lägga in dig själv som flygande. 
+                Vill du så gärna lägga till dig själv i Schemat som flygande så gör du såhär: 
+                1. Lägg till alla stationer FÖRUTOM flygande. 
+                2. Lägg till alla som jobbar (Förutom dig själv) och markera dem för alla stationer.
+                3. Lägg till stationen Flygande. 
+                4. Lägg till dig själv i gris listan. 
+                5. Generera Schema.
             </p>
           </div>
         </div>
