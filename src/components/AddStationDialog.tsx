@@ -44,7 +44,7 @@ export const AddStationDialog = ({ onAddStation }: AddStationDialogProps) => {
       <DialogTrigger asChild>
         <Button className="gap-2 shadow-sm">
           <Plus className="w-4 h-4" />
-          Lägg till Station
+          Station
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">

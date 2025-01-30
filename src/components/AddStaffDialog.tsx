@@ -55,7 +55,7 @@ export const AddStaffDialog = ({ stations, onAddStaff }: AddStaffDialogProps) =>
       <DialogTrigger asChild>
         <Button className="gap-2 shadow-sm">
           <Plus className="w-4 h-4" />
-          Lägg till Gris
+          Gris
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
