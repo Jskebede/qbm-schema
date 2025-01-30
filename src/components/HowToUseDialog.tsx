@@ -27,8 +27,8 @@ export const HowToUseDialog = () => {
             <p className="text-sm text-muted-foreground">
               Börja alltid med att skapa dina stationer. Använd "Lägg till Station" knappen för att lägga till varje arbetsstation
               och ange hur många Grisar som behövs för varje station. (!!!VIKTIGT!!! Pga min konstiga algorithm så lägg till "Plock" stationen sist.)
-              _
-              _
+              </p>
+              <p className="text-sm text-muted-foreground">
               (Detta är ända momentet som det behövs att använda tankekraft, då du behöver veta hur många det är som jobbar och hur många av dem grisarna man vill använda på varje station.)
             </p>
           </div>
