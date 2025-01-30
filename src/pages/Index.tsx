@@ -143,16 +143,17 @@ const Index = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <StaffSection 
-            staff={staff} 
-            stations={stations} 
-            onAddStaff={handleAddStaff} 
-            onDeleteStaff={handleDeleteStaff}
-          />
+       
           <StationsSection 
             stations={stations} 
             onAddStation={handleAddStation} 
             onDeleteStation={handleDeleteStation}
+          />
+             <StaffSection 
+            staff={staff} 
+            stations={stations} 
+            onAddStaff={handleAddStaff} 
+            onDeleteStaff={handleDeleteStaff}
           />
         </div>
         
