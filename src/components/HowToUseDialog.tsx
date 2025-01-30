@@ -59,11 +59,14 @@ export const HowToUseDialog = () => {
             <h3 className="font-medium text-pink-700 mb-2">Användning av flygande position</h3>
             <p className="text-sm text-muted-foreground">
                 Vill du så gärna lägga till dig själv i Schemat som flygande så gör du såhär: 
-                1. Lägg till alla stationer FÖRUTOM flygande. 
-                2. Lägg till alla som jobbar (Förutom dig själv) och markera dem för alla stationer.
-                3. Lägg till stationen Flygande. 
-                4. Lägg till dig själv i gris listan och markera endast "Flygande". 
-                5. Generera Schema.
+                <ul className="list-disc list-inside text-sm text-muted-foreground mt-2 space-y-1">
+            
+                <li>1. Lägg till alla stationer FÖRUTOM flygande.</li>
+                <li>2. Lägg till alla som jobbar (Förutom dig själv) och markera dem för alla stationer.</li>
+                <li>3. Lägg till stationen Flygande.</li>
+                <li>4. Lägg till dig själv i gris listan och markera endast "Flygande".</li> 
+                <li>5. Generera Schema.</li>
+            </ul>
             </p>
           </div>
         </div>
