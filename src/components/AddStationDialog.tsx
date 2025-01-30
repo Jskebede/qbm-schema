@@ -17,6 +17,7 @@ interface StationConfig {
 }
 
 export const AddStationDialog = ({ onAddStation }: AddStationDialogProps) => {
+  const [open, setOpen] = useState(false);
   const [locationType, setLocationType] = useState<"inne" | "ute" | "">("");
   const [currentStep, setCurrentStep] = useState<"selection" | "staffing">("selection");
   const [stations, setStations] = useState<StationConfig[]>([]);
@@ -34,7 +35,7 @@ export const AddStationDialog = ({ onAddStation }: AddStationDialogProps) => {
 
   const handleStaffNumberChange = (index: number, value: string) => {
     const newStations = [...stations];
-    newStations[index].requiredStaff = parseInt(value) || 1;
+    newStations[index].requiredStaff = parseInt(value) || 0;
     setStations(newStations);
   };
 
@@ -59,10 +60,11 @@ export const AddStationDialog = ({ onAddStation }: AddStationDialogProps) => {
       onAddStation(station.name, station.requiredStaff);
     });
 
-    // Reset the form
+    // Reset the form and close dialog
     setLocationType("");
     setCurrentStep("selection");
     setStations([]);
+    setOpen(false);
 
     toast({
       title: "Success",
@@ -70,8 +72,15 @@ export const AddStationDialog = ({ onAddStation }: AddStationDialogProps) => {
     });
   };
 
+  const handleClose = () => {
+    setOpen(false);
+    setLocationType("");
+    setCurrentStep("selection");
+    setStations([]);
+  };
+
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button className="gap-2 shadow-sm">
           <Plus className="w-4 h-4" />
@@ -111,7 +120,7 @@ export const AddStationDialog = ({ onAddStation }: AddStationDialogProps) => {
                 <Input
                   id={`staff-${index}`}
                   type="number"
-                  min="1"
+                  min="0"
                   value={station.requiredStaff}
                   onChange={(e) => handleStaffNumberChange(index, e.target.value)}
                   placeholder="Enter required staff number"
