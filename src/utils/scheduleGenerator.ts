@@ -68,10 +68,12 @@ export const generateFairSchedule = (
     station: string,
     hour: string,
     availableStaff: Staff[],
+    assignedStaffForHour: Set<string>,
     currentAssignments: string[] = []
   ): Staff | null => {
     const qualified = availableStaff.filter(member => 
       member.stations.includes(station) &&
+      !assignedStaffForHour.has(member.name) &&  // Check if staff is already assigned this hour
       !schedule[hour][station].includes(member.name) &&
       (currentAssignments.length === 0 || !haveWorkedTogether(member.name, currentAssignments[0]))
     );
@@ -86,20 +88,28 @@ export const generateFairSchedule = (
 
   // Generate schedule for each hour
   hours.forEach(hour => {
-    const hourlyAssignments = new Set<string>(); // Track assignments for this hour
+    const assignedStaffForHour = new Set<string>(); // Track assignments for this specific hour
 
-    stations.forEach(station => {
+    // Sort stations by required staff (descending) to handle larger stations first
+    const sortedStations = [...stations].sort((a, b) => b.requiredStaff - a.requiredStaff);
+
+    sortedStations.forEach(station => {
       const neededStaff = station.requiredStaff;
       const stationAssignments: string[] = [];
 
       for (let i = 0; i < neededStaff; i++) {
-        const availableStaff = staff.filter(member => !hourlyAssignments.has(member.name));
-        const bestStaff = findBestStaffMember(station.name, hour, availableStaff, stationAssignments);
+        const bestStaff = findBestStaffMember(
+          station.name, 
+          hour, 
+          staff,
+          assignedStaffForHour,
+          stationAssignments
+        );
         
         if (bestStaff) {
           stationAssignments.push(bestStaff.name);
           schedule[hour][station.name].push(bestStaff.name);
-          hourlyAssignments.add(bestStaff.name);
+          assignedStaffForHour.add(bestStaff.name); // Mark staff as assigned for this hour
           staffAssignments[bestStaff.name][station.name]++;
 
           // If this is the second person assigned to this station,
