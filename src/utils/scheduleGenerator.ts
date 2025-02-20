@@ -67,50 +67,47 @@ export const generateFairSchedule = (
   const findBestStaffMember = (
     station: string,
     hour: string,
-    availableStaff: Staff[],
-    assignedStaffForHour: Set<string>,
+    unassignedStaff: Set<string>,
     currentAssignments: string[] = []
-  ): Staff | null => {
-    const qualified = availableStaff.filter(member => 
-      member.stations.includes(station) &&
-      !assignedStaffForHour.has(member.name) &&  // Check if staff is already assigned this hour
-      !schedule[hour][station].includes(member.name) &&
-      (currentAssignments.length === 0 || !haveWorkedTogether(member.name, currentAssignments[0]))
-    );
+  ): string | null => {
+    const qualified = Array.from(unassignedStaff).filter(staffName => {
+      const staffMember = staff.find(s => s.name === staffName);
+      return staffMember?.stations.includes(station) &&
+             !schedule[hour][station].includes(staffName) &&
+             (currentAssignments.length === 0 || !haveWorkedTogether(staffName, currentAssignments[0]));
+    });
 
     if (qualified.length === 0) return null;
 
     // Sort by number of times they've worked this station (ascending)
     return qualified.sort((a, b) => 
-      (staffAssignments[a.name][station] || 0) - (staffAssignments[b.name][station] || 0)
+      (staffAssignments[a][station] || 0) - (staffAssignments[b][station] || 0)
     )[0];
   };
 
   // Generate schedule for each hour
   hours.forEach(hour => {
-    const assignedStaffForHour = new Set<string>(); // Track assignments for this specific hour
-
     // Sort stations by required staff (descending) to handle larger stations first
     const sortedStations = [...stations].sort((a, b) => b.requiredStaff - a.requiredStaff);
+    const unassignedStaff = new Set(staff.map(s => s.name)); // Track unassigned staff for this hour
 
     sortedStations.forEach(station => {
       const neededStaff = station.requiredStaff;
       const stationAssignments: string[] = [];
 
-      for (let i = 0; i < neededStaff; i++) {
+      for (let i = 0; i < neededStaff && unassignedStaff.size > 0; i++) {
         const bestStaff = findBestStaffMember(
-          station.name, 
-          hour, 
-          staff,
-          assignedStaffForHour,
+          station.name,
+          hour,
+          unassignedStaff,
           stationAssignments
         );
-        
+
         if (bestStaff) {
-          stationAssignments.push(bestStaff.name);
-          schedule[hour][station.name].push(bestStaff.name);
-          assignedStaffForHour.add(bestStaff.name); // Mark staff as assigned for this hour
-          staffAssignments[bestStaff.name][station.name]++;
+          stationAssignments.push(bestStaff);
+          schedule[hour][station.name].push(bestStaff);
+          unassignedStaff.delete(bestStaff); // Remove from unassigned pool
+          staffAssignments[bestStaff][station.name]++;
 
           // If this is the second person assigned to this station,
           // record them as a pair
@@ -120,6 +117,39 @@ export const generateFairSchedule = (
         }
       }
     });
+
+    // Handle any remaining unassigned staff
+    if (unassignedStaff.size > 0) {
+      // Find stations that can still accommodate more staff
+      const availableStations = sortedStations.filter(station => 
+        schedule[hour][station.name].length < station.requiredStaff
+      );
+
+      // Distribute remaining staff across available stations
+      Array.from(unassignedStaff).forEach(staffName => {
+        const staffMember = staff.find(s => s.name === staffName);
+        if (!staffMember) return;
+
+        // Find a station this staff member can work at
+        const availableStation = availableStations.find(station => 
+          staffMember.stations.includes(station.name) &&
+          schedule[hour][station.name].length < station.requiredStaff
+        );
+
+        if (availableStation) {
+          schedule[hour][availableStation.name].push(staffName);
+          staffAssignments[staffName][availableStation.name]++;
+          
+          // If this makes a pair, record it
+          if (schedule[hour][availableStation.name].length === 2) {
+            recordStaffPair(
+              schedule[hour][availableStation.name][0],
+              schedule[hour][availableStation.name][1]
+            );
+          }
+        }
+      });
+    }
   });
 
   return schedule;
