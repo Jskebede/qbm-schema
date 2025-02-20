@@ -2,8 +2,6 @@
 import { useState } from "react";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { DndContext, DragEndEvent, MouseSensor, TouchSensor, useSensor, useSensors } from "@dnd-kit/core";
-import { restrictToWindowEdges } from "@dnd-kit/modifiers";
-import { CSS } from "@dnd-kit/utilities";
 import { useToast } from "@/hooks/use-toast";
 
 interface ScheduleDisplayProps {
@@ -135,7 +133,6 @@ export const ScheduleDisplay = ({ schedule }: ScheduleDisplayProps) => {
         <DndContext 
           sensors={sensors} 
           onDragEnd={handleDragEnd}
-          modifiers={[restrictToWindowEdges]}
         >
           <Table>
             <TableHeader>
