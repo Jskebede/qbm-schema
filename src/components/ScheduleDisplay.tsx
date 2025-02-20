@@ -1,7 +1,18 @@
 
 import { useState } from "react";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { DndContext, DragEndEvent, MouseSensor, TouchSensor, useSensor, useSensors } from "@dnd-kit/core";
+import { 
+  DndContext, 
+  DragEndEvent, 
+  MouseSensor, 
+  TouchSensor, 
+  useSensor, 
+  useSensors,
+  DraggableAttributes,
+  DragOverlay,
+  useDraggable,
+  useDroppable
+} from "@dnd-kit/core";
 import { useToast } from "@/hooks/use-toast";
 
 interface ScheduleDisplayProps {
@@ -19,8 +30,15 @@ interface DraggableStaffProps {
 }
 
 const DraggableStaff = ({ name, color, id }: DraggableStaffProps) => {
+  const { attributes, listeners, setNodeRef, isDragging } = useDraggable({
+    id: id,
+  });
+
   return (
     <div
+      ref={setNodeRef}
+      {...listeners}
+      {...attributes}
       className={`
         inline-block px-3 py-1 
         bg-white text-black
@@ -29,10 +47,22 @@ const DraggableStaff = ({ name, color, id }: DraggableStaffProps) => {
         shadow-sm cursor-move
         transition-all
         hover:shadow-md
+        ${isDragging ? 'opacity-50' : ''}
       `}
-      data-staff-id={id}
     >
       {name}
+    </div>
+  );
+};
+
+const DroppableCell = ({ children, id }: { children: React.ReactNode; id: string }) => {
+  const { setNodeRef } = useDroppable({
+    id: id,
+  });
+
+  return (
+    <div ref={setNodeRef} className="w-full h-full">
+      {children}
     </div>
   );
 };
@@ -161,12 +191,13 @@ export const ScheduleDisplay = ({ schedule }: ScheduleDisplayProps) => {
                     >
                       <div className="flex flex-wrap gap-1 justify-center">
                         {localSchedule[hour][station]?.map((staff, idx) => (
-                          <DraggableStaff
-                            key={`${hour}|${station}|${idx}`}
-                            id={`${hour}|${station}|${idx}`}
-                            name={staff}
-                            color={getStaffColor(staff)}
-                          />
+                          <DroppableCell key={`${hour}|${station}|${idx}`} id={`${hour}|${station}|${idx}`}>
+                            <DraggableStaff
+                              id={`${hour}|${station}|${idx}`}
+                              name={staff}
+                              color={getStaffColor(staff)}
+                            />
+                          </DroppableCell>
                         ))}
                       </div>
                     </TableCell>
